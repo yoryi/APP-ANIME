@@ -14,7 +14,7 @@ export const rootReducer = (state = initialState, action) => {
     case IS_FETCHING:
       return { ...state, fetching: true };
     case ANIME_FETCHED:
-      console.log('ANIME: ', action.payload);
+      //console.log('ANIME: ', action.payload.results);
       return {
         ...state,
         fetched: true,
@@ -22,7 +22,7 @@ export const rootReducer = (state = initialState, action) => {
         anime: Object.keys(action.payload)
       };
     case ERROR_FETCHING_ANIME:
-      return { ...state, fetching: false, error: action.payload };
+      return { ...state, fetching: false, error: action };
     default:
       return state;
   }

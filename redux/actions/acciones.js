@@ -13,7 +13,7 @@ export const getanime = () => {
     dispatch({ type: IS_FETCHING });
       anime
       .then(({ data }) => {
-        dispatch({ type: ANIME_FETCHED, payload: data });
+        dispatch({ type: ANIME_FETCHED, payload: data.results });
       })
       .catch(err => {
         dispatch({ type: ERROR_FETCHING_ANIME, payload: err });

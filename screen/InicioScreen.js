@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, StatusBar, Dimensions } from 'react-native';
-import { TouchableOpacity, FlatList } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, StatusBar, Dimensions, FlatList, Image } from 'react-native';
 import Constants from 'expo-constants';
 
 //DIMENSIONES
@@ -14,28 +13,56 @@ import { getanime } from '../redux/actions/acciones';
 //COMPONENTES
 import Buscador from '../components/buscador'
 
-class App extends Component {
+//CONSTANTES
+import COLOR from '../constant/Colores'
+import TEXTO from '../constant/Textos'
+import Iconos from '../constant/Iconos';
+
+//IMAGENES
+import LOGO from '../assets/Logo.png'
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
+
+class INICIO extends Component {
+
   componentDidMount() {
     this.props.getanime();
   }
 
   render() {
     return (
-      <View style={{ height: '100%', backgroundColor: 'orange' }}>
-        <StatusBar barStyle="dark-content" backgroundColor="white" />
-        <View style={{ backgroundColor: '', height: '20%', justifyContent: 'center', paddingLeft: '5%', paddingRight: '5%', }}>
+      <View style={{ height: '100%', backgroundColor: COLOR.FONDO }}>
+        <StatusBar barStyle="light-content" backgroundColor="white" />
+        <View style={styles.statusBar} />
 
+        <View style={{ backgroundColor: '', height: '15%', alignItems: 'center', justifyContent: 'center', paddingLeft: '5%', paddingRight: '5%', width: '100%' }}>
+          <Image resizeMode={'contain'} source={LOGO} style={{ width: Iconos.LOGO, height: Iconos.LOGO }} />
+        </View>
+
+        <View style={{ height: '10%', backgroundColor: '', justifyContent: 'center', paddingLeft: '4%', paddingRight: '4%' }}>
           <Buscador
             placeholder={'Buscardor'}
           />
-         </View>
 
-        <View style={{ paddingLeft: '2.5%', paddingRight: '2.5%', paddingBottom: '2.5%', height: '80%' }}>
+        </View>
+
+        <View style={{ paddingLeft: '3.8%', paddingRight: '3.8%', paddingBottom: '2%', height: '70%' }}>
           <View style={{ backgroundColor: 'white', height: '100%', justifyContent: 'center', borderRadius: '15%' }}>
 
-            <FlatList>
+            <FlatList showsVerticalScrollIndicator={false} style={styles.flatlist}
+              enableEmptySections={true}
+              data={this.props.anime}
+              numColumns={2}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item, index }) => {
 
-            </FlatList>
+                return <View style={{ width: '45%', backgroundColor: 'blue', paddingBottom: '60%', margin: 6, borderRadius: 10 }}>
+                  <TouchableOpacity onPress={() => navigation.navigate('Detalles')}>
+                    <Text>{item}</Text>
+                  </TouchableOpacity>
+                </View>
+              }}
+            />
 
           </View>
         </View>
@@ -59,6 +86,19 @@ const styles = StyleSheet.create({
 
   },
 
+  row: {
+    flex: 1,
+    justifyContent: "space-around"
+  },
+
+  flatlist: {
+
+    height: '85%',
+    width: '100%',
+
+  },
+
+
 });
 
 
@@ -70,4 +110,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getanime })(App);
+export default connect(mapStateToProps, { getanime })(INICIO);
