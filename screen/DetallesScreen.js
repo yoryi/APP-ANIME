@@ -9,54 +9,59 @@ import ICONOS from '../constant/Iconos';
 
 //COMPONENTES
 import Item from '../components/item'
+import Atras from '../components/atras'
+import Fondo from '../components/fondo'
 
-//IMAGEN
-import ATRAS from '../assets/atras.png'
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
-class Detalles extends Component {
+function Detalles({ route, navigation }) {
 
-  render() {
-    return (
-      <View style={{ height: '100%', backgroundColor: COLOR.FONDO }}>
-        <StatusBar barStyle="dark-content" backgroundColor="white" />
-        <View style={{ backgroundColor: '#3F3356', height: '40%', borderBottomLeftRadius: 20, borderBottomEndRadius: 20 }}>
-          <View style={{ width: '100%', height: '20%', justifyContent: 'center', paddingStart: '4%', paddingTop: '10%' }}>
+  const { imagen } = route.params;
+  const { nombre } = route.params;
+  const { status } = route.params;
+  const { specie } = route.params;
+  const { genero } = route.params;
 
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Inicio')}>
-              <Image resizeMode={'contain'} source={ATRAS} style={{ width: ICONOS.ATRAS, height: ICONOS.ATRAS }} />
-            </TouchableOpacity>
+  return (
+    <View style={{ height: '100%', backgroundColor: COLOR.FONDO }}>
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
+      <View style={styles.fondo}>
 
-          </View>
-        </View>
+        <Fondo
+          imagen={{ uri: imagen }}
+        />
 
-        <View style={{ backgroundColor: '', height: '60%', padding: '5%' }}>
+        <Atras
+          ruta={() => navigation.navigate('Inicio')}
+        />
 
-          <Item
-            nombre={'Nombre'}
-            valor={'jss'}
-          />
+      </View>
 
-          <Item
-            nombre={'Status'}
-            valor={'jss'}
-          />
+      <View style={styles.items}>
+        <Item
+          nombre={'Nombre'}
+          valor={nombre}
+        />
 
-          <Item
-            nombre={'Species'}
-            valor={'jss'}
-          />
+        <Item
+          nombre={'Status'}
+          valor={status}
+        />
 
-          <Item
-            nombre={'Genero'}
-            valor={'jss'}
-          />
+        <Item
+          nombre={'Species'}
+          valor={specie}
+        />
 
-        </View>
-      </View >
-    );
-  }
+        <Item
+          nombre={'Genero'}
+          valor={genero}
+        />
+
+      </View>
+    </View >
+  );
 }
+
 
 export default Detalles;
 
@@ -71,6 +76,23 @@ const styles = StyleSheet.create({
   statusBar: {
     //backgroundColor: "#6C00DB",
     height: Constants.statusBarHeight,
+
+  },
+
+  fondo: {
+
+    backgroundColor: '#3F3356',
+    height: '40%',
+    borderBottomLeftRadius: 20,
+    borderBottomEndRadius: 20
+
+  },
+
+  items: {
+
+    height: '60%',
+    padding: '4%',
+    paddingTop: '14%'
 
   },
 

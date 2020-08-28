@@ -12,7 +12,7 @@ export default class item extends React.Component {
         return (
             <View>
                 <Text style={{ fontSize: 20, color: 'white' }}>{this.props.nombre}: {this.props.valor}</Text>
-                <View style={{ height: '5%' }} />
+                <View style={{ height: '8%' }} />
             </View>
         )
     }

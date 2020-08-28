@@ -19,7 +19,7 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         fetched: true,
         fetching: false,
-        anime: Object.keys(action.payload)
+        anime: action.payload
       };
     case ERROR_FETCHING_ANIME:
       return { ...state, fetching: false, error: action };

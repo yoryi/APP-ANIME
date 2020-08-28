@@ -37,7 +37,8 @@ export default class input extends React.Component {
                         paddingLeft: 2,
                         borderRadius: 10,
                         fontSize: 18,
-                        paddingHorizontal: '5%'
+                        paddingHorizontal: '5%',
+                        color: 'white'
                     }}
                     placeholder={this.props.placeholder}
                     placeholderTextColor={'white'}

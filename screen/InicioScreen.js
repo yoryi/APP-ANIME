@@ -12,6 +12,7 @@ import { getanime } from '../redux/actions/acciones';
 
 //COMPONENTES
 import Buscador from '../components/buscador'
+import Carta from '../components/carta'
 
 //CONSTANTES
 import COLOR from '../constant/Colores'
@@ -20,10 +21,8 @@ import Iconos from '../constant/Iconos';
 
 //IMAGENES
 import LOGO from '../assets/Logo.png'
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
-
-class INICIO extends Component {
+class Inicio extends Component {
 
   componentDidMount() {
     this.props.getanime();
@@ -35,19 +34,19 @@ class INICIO extends Component {
         <StatusBar barStyle="light-content" backgroundColor="white" />
         <View style={styles.statusBar} />
 
-        <View style={{ backgroundColor: '', height: '15%', alignItems: 'center', justifyContent: 'center', paddingLeft: '5%', paddingRight: '5%', width: '100%' }}>
+        <View style={styles.logo}>
           <Image resizeMode={'contain'} source={LOGO} style={{ width: Iconos.LOGO, height: Iconos.LOGO }} />
         </View>
 
-        <View style={{ height: '10%', backgroundColor: '', justifyContent: 'center', paddingLeft: '4%', paddingRight: '4%' }}>
+        <View style={styles.buscador}>
           <Buscador
             placeholder={'Buscardor'}
           />
 
         </View>
 
-        <View style={{ paddingLeft: '3.8%', paddingRight: '3.8%', paddingBottom: '2%', height: '70%' }}>
-          <View style={{ backgroundColor: 'white', height: '100%', justifyContent: 'center', borderRadius: '15%' }}>
+        <View style={styles.cuerpo}>
+          <View style={styles.diseño_cuerpo}>
 
             <FlatList showsVerticalScrollIndicator={false} style={styles.flatlist}
               enableEmptySections={true}
@@ -56,14 +55,22 @@ class INICIO extends Component {
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item, index }) => {
 
-                return <View style={{ width: '45%', backgroundColor: 'blue', paddingBottom: '60%', margin: 6, borderRadius: 10 }}>
-                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Detalles')}>
-                    <Text>{item}</Text>
-                  </TouchableOpacity>
-                </View>
+                return <Carta
+                  nombre={item.name}
+                  imagen={{ uri: item.image }}
+                  ruta={() => this.props.navigation.navigate('Detalles',
+                    {
+                      imagen: item.image,
+                      nombre: item.name,
+                      status: item.status,
+                      specie: item.species,
+                      genero: item.gender,
+                      
+                    })}
+                />
+
               }}
             />
-
           </View>
         </View>
       </View>
@@ -76,14 +83,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    //alignItems: 'center',
-    //justifyContent: 'center',
   },
 
   statusBar: {
     //backgroundColor: "#6C00DB",
     height: Constants.statusBarHeight,
-
   },
 
   row: {
@@ -93,11 +97,47 @@ const styles = StyleSheet.create({
 
   flatlist: {
 
+    flex: 1,
     height: '85%',
     width: '100%',
 
   },
 
+  logo: {
+
+    height: '15%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    width: '100%'
+
+  },
+
+  buscador: {
+
+    height: '10%',
+    justifyContent: 'flex-start',
+    paddingLeft: '4%',
+    paddingRight: '4%'
+
+  },
+
+  cuerpo: {
+
+    paddingLeft: '3.8%',
+    paddingRight: '3.8%',
+    paddingBottom: '2%',
+    height: '70%'
+
+  },
+
+  diseño_cuerpo: {
+    backgroundColor: 'white',
+    height: '100%',
+    justifyContent: 'center',
+    borderRadius: 14
+  }
 
 });
 
@@ -110,4 +150,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getanime })(INICIO);
+export default connect(mapStateToProps, { getanime })(Inicio);
