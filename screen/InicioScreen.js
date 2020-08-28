@@ -57,7 +57,7 @@ class INICIO extends Component {
               renderItem={({ item, index }) => {
 
                 return <View style={{ width: '45%', backgroundColor: 'blue', paddingBottom: '60%', margin: 6, borderRadius: 10 }}>
-                  <TouchableOpacity onPress={() => navigation.navigate('Detalles')}>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Detalles')}>
                     <Text>{item}</Text>
                   </TouchableOpacity>
                 </View>
